@@ -8,12 +8,21 @@ data:
       "DBConfig": {
         "DriverName": "mysql",
         "DataSourceName": "",
-        "DBName": "mlpipeline"
+        "DBName": "$(mysqlDBName)",
+        "Host": "$(mysqlHost)",
+        "Port": "$(mysqlPort)",
+        "User": "$(mysqlUser)",
+        "Password": "$(mysqlPassword)",
+        "GroupConcatMaxLen": "$(mysqlGroupConcatMaxLen)"
       },
       "ObjectStoreConfig":{
-        "AccessKey": "minio",
-        "SecretAccessKey": "minio123",
-        "BucketName": "mlpipeline"
+        "AccessKey": "$(minioServiceAccessKey)",
+        "SecretAccessKey": "$(minioServiceSecretAccessKey)",
+        "Host": "$(minioServiceHost)",
+        "Region": "$(minioServiceRegion)",
+        "Secure": "$(minioServiceSecure)",
+        "BucketName": "$(pipelineBucket)",
+        "PipelinePath": "$(pipelinePath)"
       },
       "InitConnectionTimeout": "6m",
       "DefaultPipelineRunnerServiceAccount": "pipeline-runner",

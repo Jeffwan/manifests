@@ -13,3 +13,102 @@ images:
 - name: gcr.io/ml-pipeline/api-server
   newTag: 0.2.0
   newName: gcr.io/ml-pipeline/api-server
+configMapGenerator:
+- name: pipeline-api-server-parameters
+  env: params.env
+generatorOptions:
+  disableNameSuffixHash: true
+vars:
+- name: mysqlDBName
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.mysqlDBName
+- name: mysqlHost
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.mysqlHost
+- name: mysqlPort
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.mysqlPort
+- name: mysqlUser
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.mysqlUser
+- name: mysqlPassword
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.mysqlPassword
+- name: mysqlGroupConcatMaxLen
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.mysqlGroupConcatMaxLen
+- name: minioServiceAccessKey
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.minioServiceAccessKey
+- name: minioServiceSecretAccessKey
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.minioServiceSecretAccessKey
+- name: minioServiceHost
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.minioServiceHost
+- name: minioServiceRegion
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.minioServiceRegion
+- name: minioServiceSecure
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.minioServiceSecure
+- name: pipelineBucket
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.pipelineBucket
+- name: pipelinePath
+  objref:
+    kind: ConfigMap
+    name: pipeline-api-server-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.pipelinePath
+configurations:
+- params.yaml

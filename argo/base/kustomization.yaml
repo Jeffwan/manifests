@@ -100,6 +100,13 @@ vars:
     apiVersion: v1
   fieldref:
     fieldpath: data.namespace
+- name: archiveLogs
+  objref:
+    kind: ConfigMap
+    name: workflow-controller-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.archiveLogs
 - name: clusterDomain
   objref:
     kind: ConfigMap

@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base
+patchesStrategicMerge:
+- config-map.yaml
+configMapGenerator:
+- name: workflow-controller-parameters
+  env: params.env
+  behavior: merge
+generatorOptions:
+  disableNameSuffixHash: true
+patchesJson6902:
+- target:
+    version: v1
+    kind: ServiceAccount
+    name: argo
+  path: sa-annotation-patch.yaml
+vars:
+- name: archiveLogs
+  objref:
+    kind: ConfigMap
+    name: workflow-controller-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.archiveLogs
+configurations:
+- params.yaml
