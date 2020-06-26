@@ -1,0 +1,53 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base
+patchesStrategicMerge:
+- deployment.yaml
+resources:
+- viewer-tensorboard-template-configmap.yaml
+
+namespace: kubeflow
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+
+# add your IAM annotations here
+commonAnnotations:
+  # kube2iam annotations
+  # iam.amazonaws.com/role: kube2iam-role
+  # eks iam annotations, change to you role
+  eks.amazonaws.com/role-arn: eks-role
+
+
+configMapGenerator:
+  - name: pipeline-ui-aws-parameters
+    behavior: merge
+    env: params.env
+
+vars:
+- name: awsIAMAnnotationKey
+  objref:
+    kind: ConfigMap
+    name: pipeline-ui-aws-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.awsIAMAnnotationKey
+- name: awsIAMRole
+  objref:
+    kind: ConfigMap
+    name: pipeline-ui-aws-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.awsIAMRole
+- name: awsRegion
+  objref:
+    kind: ConfigMap
+    name: pipeline-ui-aws-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.awsRegion
+
+configurations:
+  - params.yaml

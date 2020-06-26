@@ -1,0 +1,50 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base
+patchesStrategicMerge:
+- deployment.yaml
+resources:
+- viewer-tensorboard-template-configmap.yaml
+
+namespace: kubeflow
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pipeline-ui-aws-parameters
+  behavior: merge
+  env: params.env
+
+vars:
+- name: awsSecretName
+  objref:
+    kind: ConfigMap
+    name: pipeline-ui-aws-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.awsSecretName
+- name: awsAccessKeyID
+  objref:
+    kind: ConfigMap
+    name: pipeline-ui-aws-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.awsAccessKeyID
+- name: awsSecretAccessKey
+  objref:
+    kind: ConfigMap
+    name: pipeline-ui-aws-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.awsSecretAccessKey
+- name: awsRegion
+  objref:
+    kind: ConfigMap
+    name: pipeline-ui-aws-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.awsRegion
+configurations:
+- params.yaml

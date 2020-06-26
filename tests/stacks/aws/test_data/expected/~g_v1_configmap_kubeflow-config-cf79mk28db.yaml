@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  cluster-name: ""
+  clusterDomain: cluster.local
+  userid-header: kubeflow-userid
+kind: ConfigMap
+metadata:
+  name: kubeflow-config-cf79mk28db
+  namespace: kubeflow
